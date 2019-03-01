@@ -5,18 +5,20 @@ import BoilingVerdict from './BoilingVerdict';
 import TemperatureInput from './TemperatureInput';
 import { tryConvert, toCelsius, toFahrenheit } from './ConversionFunctions';
 
-class Calculator extends Component {
-    state = {
-      temperature: '', 
-      scale: 'c'
-      };
-  
 
-  handleCelsiusChange = (temperature) => {
+class Calculator extends Component {
+  constructor(props) {
+    super(props);
+    this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+    this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+    this.state = {temperature: '', scale: 'c'};
+  }
+
+  handleCelsiusChange(temperature) {
     this.setState({scale: 'c', temperature});
   }
 
-  handleFahrenheitChange = (temperature) => {
+  handleFahrenheitChange(temperature) {
     this.setState({scale: 'f', temperature});
   }
 
@@ -31,13 +33,11 @@ class Calculator extends Component {
         <TemperatureInput
           scale="c"
           temperature={celsius}
-          onTemperatureChange={temperature => this.handleCelsiusChange(temperature)} />
-
+          onTemperatureChange={this.handleCelsiusChange} />
         <TemperatureInput
           scale="f"
           temperature={fahrenheit}
-          onTemperatureChange={temperature => this.handleFahrenheitChange(temperature)} />
-
+          onTemperatureChange={this.handleFahrenheitChange} />
         <BoilingVerdict
           celsius={parseFloat(celsius)} />
       </div>

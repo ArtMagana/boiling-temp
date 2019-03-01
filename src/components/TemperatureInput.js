@@ -2,35 +2,28 @@
 
 import React, { Component } from 'react';
 
-class TemperatureInput extends Component {
-    state = {
-      temperature: ''
-    }
-  
-  
-  scaleNames = {
-    c: 'Celsius',
-    f: 'Fahrenheit'
-  };
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit'
+};
 
-      // this.setState({
-      //   temperature: e.target.value
-      // }, () => {
-      //   console.log('temp input in component state: ', this.state)
-      // })
+class TemperatureInput extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   handleChange(e) {
     this.props.onTemperatureChange(e.target.value);
   }
 
   render() {
-    const temperature = this.state.temperature;
+    const temperature = this.props.temperature;
     const scale = this.props.scale;
-
     return (
       <fieldset>
-        <legend>Enter temperature in {this.scaleNames[scale]}:</legend>
-        <input value={temperature} onChange={e => this.handleChange(e)} />
+        <legend>Enter temperature in {scaleNames[scale]}:</legend>
+        <input value={temperature} onChange={this.handleChange} />
       </fieldset>
     );
   }
